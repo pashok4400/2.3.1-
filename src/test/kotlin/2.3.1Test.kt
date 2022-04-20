@@ -1,163 +1,142 @@
-import junit.framework.Assert.assertTrue
 import org.junit.Test
+
+import org.junit.Assert.*
 
 class WallServiceTest {
 
     @Test
-    fun uad() {
-        val comments1 = Post.Comments(100, false, false, false, false)
-        val comments2 = Post.Comments(1, true, true, true, true)
-        val copiright1 = Post.Copyright(2556, "Ivanych", "Petr", "user")
-        val copiright2 = Post.Copyright(3635, "OneJournal99", "OneJournal", "journal")
-        val likes1 = Post.Likes(25, false, false, false)
-        val likes2 = Post.Likes(25, true, true, true)
-        val reposts1 = Post.Reposts(10, false)
-        val reposts2 = Post.Reposts(1, true)
-        val views1 = Post.View(10)
-        val views2 = Post.View(0)
-        val placeholder = Post.Donut.Placeholder("Заглушка");
-        val donut1 = Post.Donut(false, 200, placeholder, false, "duration")
-        val donut2 = Post.Donut(true, 100, placeholder, true, "all")
+    fun addTest() {
+        val actualExpected = 1
 
-        val geo1 = Post.Geo("town", "32.36, 25.45", null)
-        val geo2 = Post.Geo("sea", "45.00, 32.12", null)
+        val post = Post(
+            id = 1, ownerId = 34, fromId = 2, createdBy = 7, date = 987654321,
+            text = "text", replyOwnerId = 98, replyPostId = 35, friendsOnly = true,
+            comments = "comments", copyright = "copyright", likes = 22,
+            reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+            copyHistory = "232", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+            markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 345, attachments = null
+        )
 
-
-        val service = WallService
-
-        service.add(Post(0, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null
-        ))
+        assertEquals(post.id, actualExpected)
     }
 
     @Test
-    fun updateExistingTruePost() {
-        val comments1 = Post.Comments(100, false, false, false, false)
-        val comments2 = Post.Comments(1, true, true, true, true)
-        val copiright1 = Post.Copyright(2556, "Ivanych", "Petr", "user")
-        val copiright2 = Post.Copyright(3635, "OneJournal99", "OneJournal", "journal")
-        val likes1 = Post.Likes(25, false, false, false)
-        val likes2 = Post.Likes(25, true, true, true)
-        val reposts1 = Post.Reposts(10, false)
-        val reposts2 = Post.Reposts(1, true)
-        val views1 = Post.View(10)
-        val views2 = Post.View(0)
-        val placeholder = Post.Donut.Placeholder("Заглушка");
-        val donut1 = Post.Donut(false, 200, placeholder, false, "duration")
-        val donut2 = Post.Donut(true, 100, placeholder, true, "all")
+    fun updateTestTrue() {
+        val result = WallService
+        result.add(
+            Post(
+                id = 101, ownerId = 34, fromId = 2, createdBy = 7, date = 987654321,
+                text = "text", replyOwnerId = 98, replyPostId = 35, friendsOnly = true,
+                comments = "comments", copyright = "copyright", likes = 22,
+                reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+                copyHistory = "232", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+                markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 345, attachments = null
+            )
+        )
 
-        val geo1 = Post.Geo("town", "32.36, 25.45", null)
-        val geo2 = Post.Geo("sea", "45.00, 32.12", null)
+        result.add(
+            Post(
+                id = 101, ownerId = 34, fromId = 2, createdBy = 7, date = 987654321,
+                text = "text", replyOwnerId = 98, replyPostId = 35, friendsOnly = true,
+                comments = "comments", copyright = "copyright", likes = 22,
+                reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+                copyHistory = "232", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+                markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 345, attachments = null
+            )
+        )
 
-
-        val service = WallService
-
-        service.add(Post(0, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null
-        ))
-        service.add(Post(0, 4567, 3567, 4356, 345678956, "Текст поста 2",
-            4567, 5467, true, comments2, copiright2, likes2, reposts2, views2,
-            "copy", 9876, true, true, true, true, true,
-            true, donut2, 4567, null, geo2, null, null
-        ))
-
-        val update = Post(1, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null)
-
-        val result = service.update(update)
-
-        assertTrue(result)
+        val resultUpdate = Post(
+            id = 1, ownerId = 34, fromId = 2, createdBy = 7, date = 987654321,
+            text = "text", replyOwnerId = 98, replyPostId = 35, friendsOnly = true,
+            comments = "comments", copyright = "copyright", likes = 22,
+            reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+            copyHistory = "232", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+            markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 345, attachments = null
+        )
+        val finishResult = result.update(resultUpdate)
+        assertTrue(finishResult)
     }
 
-
     @Test
-    fun updateExistingTrueCopy() {
-        val comments1 = Post.Comments(100, false, false, false, false)
-        val comments2 = Post.Comments(1, true, true, true, true)
-        val copiright1 = Post.Copyright(2556, "Ivanych", "Petr", "user")
-        val copiright2 = Post.Copyright(3635, "OneJournal99", "OneJournal", "journal")
-        val likes1 = Post.Likes(25, false, false, false)
-        val likes2 = Post.Likes(25, true, true, true)
-        val reposts1 = Post.Reposts(10, false)
-        val reposts2 = Post.Reposts(1, true)
-        val views1 = Post.View(10)
-        val views2 = Post.View(0)
-        val placeholder = Post.Donut.Placeholder("Заглушка");
-        val donut1 = Post.Donut(false, 200, placeholder, false, "duration")
-        val donut2 = Post.Donut(true, 100, placeholder, true, "all")
+    fun updateTestFalse() {
+        val result = WallService
+        result.add(
+            Post(
+                id = 134, ownerId = 76, fromId = 54, createdBy = 137, date = 987654321,
+                text = "text", replyOwnerId = 65, replyPostId = 45, friendsOnly = true,
+                comments = "comments", copyright = "copyright", likes = 3,
+                reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+                copyHistory = "121", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+                markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 123, attachments = null
+            )
+        )
 
-        val geo1 = Post.Geo("town", "32.36, 25.45", null)
-        val geo2 = Post.Geo("sea", "45.00, 32.12", null)
+        result.add(
+            Post(
+                id = 134, ownerId = 76, fromId = 54, createdBy = 137, date = 987654321,
+                text = "text", replyOwnerId = 65, replyPostId = 45, friendsOnly = true,
+                comments = "comments", copyright = "copyright", likes = 3,
+                reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+                copyHistory = "121", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+                markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 123, attachments = null
+            )
+        )
 
-        val service = WallService
-
-        service.add(Post(0, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null
-        ))
-        service.add(Post(0, 4567, 3567, 4356, 345678956, "Текст поста 2",
-            4567, 5467, true, comments2, copiright2, likes2, reposts2, views2,
-            "copy", 9876, true, true, true, true, true,
-            true, donut2, 4467, null, geo2, null, null
-        ))
-
-        val update = Post(2, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null)
-
-        val result = service.update(update)
-
-        assertTrue(result)
+        val resultUpdate = Post(
+            id = 12, ownerId = 222, fromId = 44, createdBy = 117, date = 13456789,
+            text = "text1", replyOwnerId = 7777, replyPostId = 15, friendsOnly = true,
+            comments = "comments", copyright = "copyright", likes = 222,
+            reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+            copyHistory = "121", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+            markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 123, attachments = null
+        )
+        val finishResult = result.update(resultUpdate)
+        assertFalse(finishResult)
     }
 
-
     @Test
-    fun updateExistingFalse() {
-        val comments1 = Post.Comments(100, false, false, false, false)
-        val comments2 = Post.Comments(1, true, true, true, true)
-        val copiright1 = Post.Copyright(2556, "Ivanych", "Petr", "user")
-        val copiright2 = Post.Copyright(3635, "OneJournal99", "OneJournal", "journal")
-        val likes1 = Post.Likes(25, false, false, false)
-        val likes2 = Post.Likes(25, true, true, true)
-        val reposts1 = Post.Reposts(10, false)
-        val reposts2 = Post.Reposts(1, true)
-        val views1 = Post.View(10)
-        val views2 = Post.View(0)
-        val placeholder = Post.Donut.Placeholder("Заглушка");
-        val donut1 = Post.Donut(false, 200, placeholder, false, "duration")
-        val donut2 = Post.Donut(true, 100, placeholder, true, "all")
+    fun createCommentTest() {
+        val result = WallService
+        val actualExpected = 1
+        result.add(
+            Post(
+                id = 12, ownerId = 222, fromId = 44, createdBy = 117, date = 13456789,
+                text = "text1", replyOwnerId = 7777, replyPostId = 15, friendsOnly = true,
+                comments = "comments", copyright = "copyright", likes = 222,
+                reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+                copyHistory = "121", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+                markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 123, attachments = null
+            )
+        )
 
-        val geo1 = Post.Geo("town", "32.36, 25.45", null)
-        val geo2 = Post.Geo("sea", "45.00, 32.12", null)
+        val comment = Comment(
+            id = 22, postId = 1, text = "Не простое это дело..."
+        )
 
-        val service = WallService
+        val finishResult = result.createComment(comment)
+        assertEquals(finishResult.postId, actualExpected)
+    }
 
-        service.add(Post(0, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null
-        ))
-        service.add(Post(0, 4567, 3567, 4356, 345678956, "Текст поста 2",
-            4567, 5467, true, comments2, copiright2, likes2, reposts2, views2,
-            "copy", 9876, true, true, true, true, true,
-            true, donut2, 4567, null, geo2, null, null
-        ))
+    @Test(expected = PostNotFoundException::class)
+    fun createCommentExceptionTest() {
+        val result = WallService
+        val actualExpected = 1
+        result.add(
+            Post(
+                id = 1, ownerId = 34, fromId = 2, createdBy = 7, date = 987654321,
+                text = "text", replyOwnerId = 98, replyPostId = 35, friendsOnly = true,
+                comments = "comments", copyright = "copyright", likes = 22,
+                reposts = 44, views = 1717, postType = "reply", postSource = "sms", geo = "Самара", signerId = 123,
+                copyHistory = "232", canPin = true, canDelete = true, canEdit = true, isPinned = true,
+                markedAsAds = true, ifFavorite = true, donut = "donut", postponedId = 345, attachments = null
+            )
+        )
 
-        val update = Post(1, 3535, 4444, 8989, 456567788, "Текст поста 1",
-            5555, 6767, false, comments1, copiright1, likes1, reposts1, views1,
-            "post", 3456, false, false, false, false, false,
-            false, donut1, 3456, null, geo1, null, null)
+        val comment = Comment(
+            id = 22, postId = 0, text = "Не простое это дело..."
+        )
 
-        val result = service.update(update)
-
-        assertTrue(result)
+        val finishResult = result.createComment(comment)
+        assertEquals(finishResult.postId, actualExpected)
     }
 }
